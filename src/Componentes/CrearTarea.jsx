@@ -29,7 +29,7 @@ export default function CrearTarea({ onClose, onTaskCreated }) {
         contenido: markdown,
       };
 
-      const res = await axios.post('http://localhost:3000/setTask', nuevaTarea);
+      const res = await axios.post('https://mistareasapi.onrender.com/setTask', nuevaTarea);
       
       if (onTaskCreated) onTaskCreated(res.data); // Llamar a la función onTaskCreated si se proporciona
       onClose(); // Cerrar el modal o componente de creación
