@@ -5,7 +5,9 @@ body {
   }
   
   main {
+    position: relative;
     display: flex;
+    width: 100%;
     height: calc( 100vh - var(--tamañoHeaderHeight) );
   
     .tareas {
@@ -37,10 +39,12 @@ body {
           
           .star{
             padding: 0 4px;
-
-            .activo{
+            font-size: 26px;
+            
+            .star-activo{
               color: gold;
             }
+            
           }
         }
       
@@ -92,4 +96,15 @@ body {
       background-color: var(--bgBarraLateral);
       width: 500px;
     }
+  }
+
+  .star{
+    padding: 0 4px;
+    color: #fff;
+    font-size: 26px;
+    
+    .star-activo{
+      color: gold;
+    }
+    
   }

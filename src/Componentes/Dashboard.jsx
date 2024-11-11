@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import Icon from './Icon';
 import HeaderDashboard from './HeaderDashboard';
 import axios from 'axios';
 import CardTask from './CardTask';
+import ModificarTarea from './ModificarTarea';
 import '../styles/dashboard.css';
 
 export default function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [tareaSeleccionada, setTareaSeleccionada] = useState(null);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -26,6 +27,14 @@ export default function Dashboard() {
     fetchTasks();
   }, []); 
 
+  const handleModificarTarea = (tarea) => {
+    setTareaSeleccionada(tarea);
+  };
+
+  const cerrarModificarTarea = () => {
+    setTareaSeleccionada(null);
+  };
+
   if (loading) {
     return <div>Cargando tareas...</div>;
   }
@@ -42,10 +51,12 @@ export default function Dashboard() {
           {tasks.length > 0 ? (
             tasks.map((tarea) => (
               <CardTask 
+                key={tarea.idTarea}
                 id={tarea.idTarea}
                 titulo={tarea.titulo}
                 desc={tarea.contenido}
                 star={tarea.star} 
+                onModificarTarea={() => handleModificarTarea(tarea)}
               />
             ))
           ) : (
@@ -55,6 +66,10 @@ export default function Dashboard() {
         <div className="barraLateral">
           {/* Contenido de la barra lateral */}
         </div>
+
+        {tareaSeleccionada && (
+          <ModificarTarea tarea={tareaSeleccionada} onClose={cerrarModificarTarea} />
+        )}
       </main>
     </>
   );
