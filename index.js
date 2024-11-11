@@ -31,6 +31,8 @@ api.use(express.json());
 //   }
 // });
 
+const idUsuario = 2;
+
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -52,8 +54,7 @@ api.get('/', (req, res) => {
 });
 
 api.get('/getTareasByID', (req, res) => {
-    const id = 2;
-    db.query('CALL `getTareasByID`(?)', [id], (err, resultados) => {
+    db.query('CALL `getTareasByID`(?)', [idUsuario], (err, resultados) => {
         if (err) {
             console.error(err);
             res.status(500).json({ "message": err.message });
@@ -64,16 +65,55 @@ api.get('/getTareasByID', (req, res) => {
 });
 
 api.put('/toggleStar', (req, res) => {
-    const {idStar} = req.body()
+    const {idStar} = req.body
     db.query('CALL`toggleStar`(?)', [idStar], (err, resultados) => {
         if (err) {
             console.error(err);
             res.status(500).json({ "message": err.message });
             return;
         }
-        res.json(resultados[0])
+        res.json('se modifico correctamente')
     })
 })
+
+api.put('/updateTask', (req, res) => {
+    const {content, idTarea} = req.body
+    
+    db.query('CALL`updateTask`(?,?)', [idTarea,content], (err, resultados) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ "message": err.message });
+            return;
+        }
+        res.json('se modifico correctamente')
+    })
+})
+
+api.delete('/deleteTask/:idTarea', (req, res) => {
+    const { idTarea } = req.params;
+    
+    db.query('CALL deleteTask(?)', [idTarea], (err, resultados) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ "message": err.message });
+            return;
+        }
+        res.json('La tarea se eliminó correctamente');
+    });
+});
+
+api.post('/setTask', (req, res) => {
+    const { titulo, contenido } = req.body;
+    
+    db.query('CALL setTask(?,?)', [titulo, contenido], (err, resultados) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ "message": err.message });
+            return;
+        }
+        res.json('La tarea se eliminó correctamente');
+    });
+});
 
 const PORT = 3000;
 api.listen(PORT, () => {
