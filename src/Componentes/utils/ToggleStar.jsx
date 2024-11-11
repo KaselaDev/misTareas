@@ -5,7 +5,7 @@ import Icon from './Icon';
 export async function ToggleStar(idStar) {
   try {
     
-    const response = await axios.put('http://localhost:3000/toggleStar/', { idStar });
+    const response = await axios.put('https://mistareasapi.onrender.com/toggleStar/', { idStar });
     return response.data; 
   } catch (error) {
     console.error('Error al cambiar el estado de la estrella:', error);
