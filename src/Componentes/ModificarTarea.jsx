@@ -39,7 +39,7 @@ export default function ModificarTarea({ tarea, onClose }) {
 
   const handleEditar = () => {
     try {
-      const res = axios.put('http://localhost:3000/updateTask',{
+      const res = axios.put('https://mistareasapi.onrender.com/updateTask',{
         content: markdown,
         idTarea: tarea.idTarea
       });
@@ -54,7 +54,7 @@ export default function ModificarTarea({ tarea, onClose }) {
   };
 
   const handledelete = () => {
-    axios.delete(`http://localhost:3000/deleteTask/${tarea.idTarea}`)
+    axios.delete(`https://mistareasapi.onrender.com/deleteTask/${tarea.idTarea}`)
 
   }
 
