@@ -14,7 +14,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/getTareasByID/');
+        const res = await axios.get('https://mistareasapi.onrender.com/getTareasByID/');
         setTasks(res.data);
       } catch (error) {
         console.error("Error al obtener las tareas:", error);
